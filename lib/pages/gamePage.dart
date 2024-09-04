@@ -1,17 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app_flutter/providers/gamePageProvider.dart';
+import 'package:provider/provider.dart';
 
 class Gamepage extends StatelessWidget {
   late double _height, _width;
+
+  GamePageProvider? _gamePageProvider;
   @override
   Widget build(BuildContext context) {
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
-    return gameUI();
+    return ChangeNotifierProvider(
+      create: (context) => GamePageProvider(context: context),
+      child: gameUI(),
+    );
   }
 
   Widget gameUI() {
-    return Scaffold(
-      body: gameBody(),
+    return Builder(
+      builder: (context) {
+        _gamePageProvider = context.watch<GamePageProvider>();
+        if (_gamePageProvider!.question != null) {
+          return Scaffold(
+            body: gameBody(),
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
+        }
+      },
     );
   }
 
@@ -41,9 +61,9 @@ class Gamepage extends StatelessWidget {
   }
 
   Widget question() {
-    return const Text(
-      'a apple a day keep doctor away',
-      style: TextStyle(
+    return Text(
+      _gamePageProvider!.getQuestionText(),
+      style: const TextStyle(
         color: Colors.white,
         fontSize: 20,
         fontWeight: FontWeight.w400,
