@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/widgets.dart';
 
 class GamePageProvider extends ChangeNotifier {
   final Dio _dio = Dio();
@@ -52,4 +53,28 @@ class GamePageProvider extends ChangeNotifier {
       return 'No questions available';
     }
   }
+
+  void answerQuestion(String ans) async {
+    bool isCorrect = question?[currentQuestion]['correct_answer'] == ans;
+    currentQuestion++;
+    print(isCorrect ? "correct" : "wrong");
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: isCorrect ? Colors.green : Colors.red,
+          title: Icon(
+            isCorrect ? Icons.check_box_rounded : Icons.cancel_sharp,
+            color: Colors.white,
+          ),
+        );
+      },
+    );
+    await Future.delayed(
+      const Duration(seconds: 1),
+    );
+    Navigator.pop(context);
+    notifyListeners();
+  }
+  
 }

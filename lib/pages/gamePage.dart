@@ -39,17 +39,15 @@ class Gamepage extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: _width * 0.1,
-        vertical: _height * 0.05,
+        vertical: _height * 0.18,
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           question(),
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            mainAxisSize: MainAxisSize.max,
             children: [
               trueBtn(),
               falseBtn(),
@@ -65,19 +63,22 @@ class Gamepage extends StatelessWidget {
       _gamePageProvider!.getQuestionText(),
       style: const TextStyle(
         color: Colors.white,
-        fontSize: 20,
-        fontWeight: FontWeight.w400,
+        fontSize: 25,
+        fontWeight: FontWeight.w500,
       ),
     );
   }
 
   Widget trueBtn() {
     return Container(
+      width: _width * 0.9,
       margin: EdgeInsets.symmetric(
         vertical: _height * 0.01,
       ),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          _gamePageProvider?.answerQuestion("True");
+        },
         color: Colors.green,
         child: const Text(
           "True",
@@ -91,11 +92,14 @@ class Gamepage extends StatelessWidget {
 
   Widget falseBtn() {
     return Container(
+      width: _width * 0.9,
       margin: EdgeInsets.symmetric(
         vertical: _height * 0.01,
       ),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          _gamePageProvider?.answerQuestion("False");
+        },
         color: Colors.red,
         child: const Text(
           "False",
