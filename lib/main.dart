@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app_flutter/pages/gamePage.dart';
+import 'package:quiz_app_flutter/pages/homePage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SafeArea(child: Gamepage()),
+      home: SafeArea(child: HomePage()),
     );
   }
 }

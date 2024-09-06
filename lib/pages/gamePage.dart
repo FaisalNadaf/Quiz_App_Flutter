@@ -3,6 +3,9 @@ import 'package:quiz_app_flutter/providers/gamePageProvider.dart';
 import 'package:provider/provider.dart';
 
 class Gamepage extends StatelessWidget {
+  String level;
+  Gamepage({required this.level});
+
   late double _height, _width;
 
   GamePageProvider? _gamePageProvider;
@@ -11,7 +14,7 @@ class Gamepage extends StatelessWidget {
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
     return ChangeNotifierProvider(
-      create: (context) => GamePageProvider(context: context),
+      create: (context) => GamePageProvider(context: context, level: level),
       child: gameUI(),
     );
   }
