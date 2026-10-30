@@ -51,7 +51,7 @@ class GamePageProvider extends ChangeNotifier {
   }
 
   String getQuestionText() {
-    String qsn = 'empty';
+    String qsn = 'No questions available';
     if (question != null && question!.isNotEmpty) {
       try {
         qsn = question![currentQuestion]?["question"];
@@ -101,21 +101,39 @@ class GamePageProvider extends ChangeNotifier {
         return AlertDialog(
           backgroundColor:
               correct >= maxQuestion / 2 ? Colors.green[300] : Colors.red,
-          title: Text('Game Over'),
+          title: Text(
+            'Game Over Score : $correct/10',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          ),
           content: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('Correct : $correct'),
-              Text('Wrong : $wrong'),
+              Text(
+                'Correct : $correct',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+              ),
+              Text(
+                'Wrong : $wrong',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+              ),
             ],
           ),
         );
       },
     );
     await Future.delayed(
-      const Duration(seconds: 2),
+      const Duration(seconds: 3),
     );
     Navigator.pop(context);
     Navigator.pop(context);
